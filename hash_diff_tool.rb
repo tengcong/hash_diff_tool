@@ -36,7 +36,6 @@ def diff_arr_attr apple, peach, diff_info
     if apple[k] == peach[k]
       next
     else
-
       diff_info[k] = Hash.new do |hash, key|
         hash[key] = {}
       end
@@ -46,7 +45,9 @@ def diff_arr_attr apple, peach, diff_info
 
       if apple_size == peach_size
         apple_size.times do |t|
-          diff_hash apple[k][t], peach[k][t], diff_info[k]
+          # can not just compare hash, there can be common attrs, arrays, hashes
+          # should compare different types
+          #diff_hash apple[k][t], peach[k][t], diff_info[k]
         end
         next
       end
@@ -56,12 +57,12 @@ def diff_arr_attr apple, peach, diff_info
       if apple_size > peach_size
         diff_info[k][:with] = apple[k][(peach_size - apple_size) .. -1]
         peach_size.times do |t|
-          diff_hash apple[k][t], peach[k][t], diff_info[k]
+          #diff_hash apple[k][t], peach[k][t], diff_info[k]
         end
       else
         diff_info[k][:without] = peach[k][(apple_size - peach_size) .. -1]
         apple_size.times do |t|
-          diff_hash apple[k][t], peach[k][t], diff_info[k]
+          #diff_hash apple[k][t], peach[k][t], diff_info[k]
         end
       end
 
